@@ -1,0 +1,125 @@
+The **Event Loop** is a fundamental concept in JavaScript (and other programming languages like Node.js) that allows JavaScript to perform **non-blocking asynchronous operations** despite being single-threaded. It ensures that your code is executed efficiently without freezing or blocking other operations like UI rendering.
+
+### Key Concepts of the Event Loop
+
+1. **Single-Threaded Nature of JavaScript**:
+   - JavaScript runs in a single thread, meaning it can only execute one operation at a time.
+   - However, JavaScript can handle multiple asynchronous tasks (like I/O operations, HTTP requests, or timers) without blocking the execution of the rest of the code. This is where the event loop comes in.
+
+2. **Call Stack**:
+   - The call stack is a stack data structure that keeps track of function calls. 
+   - When a function is called, it's added to the stack. When the function finishes, it's removed from the stack.
+   - The JavaScript engine processes the call stack one operation at a time.
+
+3. **Web APIs**:
+   - Web APIs (such as `setTimeout()`, `fetch()`, and `DOM events`) are built-in browser features that allow you to perform asynchronous operations.
+   - These Web APIs run outside of the JavaScript engine (in the browser's environment) and are handled by the browser.
+
+4. **Callback Queue (or Message Queue)**:
+   - When an asynchronous task completes (like a timer or an HTTP request), the callback (a function) associated with that task is pushed to the **callback queue**.
+   - This queue stores functions that are ready to be executed after the current execution context (the call stack) is cleared.
+
+5. **Event Loop**:
+   - The event loop constantly checks the call stack to see if it's empty.
+   - If the call stack is empty, the event loop pushes the first function from the callback queue to the call stack for execution.
+   - This process ensures that the JavaScript engine handles asynchronous tasks after completing the current synchronous code.
+
+### How the Event Loop Works
+
+Here's a step-by-step explanation of how the event loop manages synchronous and asynchronous code:
+
+1. **Synchronous Code**:
+   - Synchronous code is executed in the order it appears in the script.
+   - Each synchronous operation is added to the call stack and executed one by one.
+   - If a synchronous operation takes a long time (e.g., a loop), it will block the event loop and delay the execution of other tasks.
+
+2. **Asynchronous Code**:
+   - When asynchronous code (like `setTimeout()`, `fetch()`, or event listeners) is encountered, the task is passed to the Web API.
+   - Once the asynchronous task completes, its callback function is placed in the **callback queue**.
+
+3. **Event Loop's Role**:
+   - The event loop keeps checking if the call stack is empty.
+   - When the call stack is empty, it moves the first function from the callback queue to the call stack.
+   - This continues until all tasks in the callback queue are processed.
+
+### Example: Basic Event Loop
+
+Let's look at a simple example to understand how the event loop works:
+
+```javascript
+console.log('Start');
+
+setTimeout(function() {
+  console.log('Timeout 1');
+}, 2000);
+
+setTimeout(function() {
+  console.log('Timeout 2');
+}, 0);
+
+console.log('End');
+```
+
+### Step-by-Step Execution:
+
+1. **Start**: The first `console.log('Start')` is executed and printed to the console.
+2. **setTimeout(2000)**: The first `setTimeout` is encountered with a delay of 2000 ms. The callback function is passed to the Web API for later execution.
+3. **setTimeout(0)**: The second `setTimeout` is encountered with a delay of 0 ms. This callback function is also passed to the Web API.
+4. **End**: The second `console.log('End')` is executed and printed immediately.
+5. **Callback Queue**:
+   - After 0 ms, the second `setTimeout` callback is moved to the callback queue and is ready to execute. But it will only be executed after the current call stack is empty.
+   - After 2000 ms, the first `setTimeout` callback is placed in the callback queue and is ready for execution.
+6. **Event Loop**: The event loop checks the call stack and finds it empty.
+   - It then moves the second `setTimeout` callback from the callback queue to the call stack, prints `'Timeout 2'`.
+   - Finally, the first `setTimeout` callback is executed after 2000 ms, printing `'Timeout 1'`.
+
+### Output:
+```
+Start
+End
+Timeout 2
+Timeout 1
+```
+
+### Why Does `Timeout 2` Run First?
+
+Even though `setTimeout(0)` was called after `setTimeout(2000)`, the callback for `setTimeout(0)` is placed in the callback queue first. However, the event loop only processes the queue once the call stack is empty. So, `'Timeout 2'` is printed first, even though it had a `0` ms delay.
+
+### Microtask Queue (Next Tick)
+
+There is another queue called the **microtask queue**, which has a higher priority than the callback queue. Promises and some other asynchronous operations (like `MutationObserver`) are placed in the microtask queue.
+
+The event loop checks the **microtask queue** **before** processing the callback queue, even if the callback queue has tasks ready.
+
+### Example with Promises:
+
+```javascript
+console.log('Start');
+
+setTimeout(() => {
+  console.log('Timeout');
+}, 0);
+
+Promise.resolve().then(() => {
+  console.log('Promise');
+});
+
+console.log('End');
+```
+
+### Output:
+```
+Start
+End
+Promise
+Timeout
+```
+
+### Explanation:
+- The `Promise` is placed in the microtask queue and has higher priority than the `setTimeout` callback, which is placed in the callback queue.
+- The event loop processes the microtask queue before the callback queue, so `'Promise'` is logged before `'Timeout'`.
+
+### Conclusion
+
+The **event loop** allows JavaScript to handle asynchronous operations efficiently by non-blocking execution. It ensures that long-running tasks like I/O operations, timers, and API calls don't block the execution of other code. By utilizing the call stack, callback queue, and microtask queue, JavaScript can manage multiple operations concurrently in a single-threaded environment.
+

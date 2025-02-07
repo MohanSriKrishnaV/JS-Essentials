@@ -1,0 +1,135 @@
+In JavaScript, variable scoping refers to the context in which a variable is accessible within your code. There are three main types of scoping in JavaScript:
+
+1. **Global Scope**
+2. **Function Scope**
+3. **Block Scope**
+
+Understanding how variables behave in each scope is crucial for writing clean and bug-free JavaScript code.
+
+### 1. **Global Scope**
+
+Variables declared outside of any function are said to be in the **global scope**. These variables are accessible anywhere in the code.
+
+```javascript
+let globalVar = 'I am global';
+
+function test() {
+  console.log(globalVar); // Accessing globalVar inside a function
+}
+
+test(); // 'I am global'
+console.log(globalVar); // 'I am global' outside function
+```
+
+In the example above, `globalVar` is accessible both inside the function and outside because it's in the global scope.
+
+### 2. **Function Scope (var)**
+
+When a variable is declared with the `var` keyword inside a function, it is **function-scoped**. This means it is only accessible within the function and not outside.
+
+```javascript
+function test() {
+  var functionScopedVar = 'I am inside the function';
+  console.log(functionScopedVar); // 'I am inside the function'
+}
+
+test();
+
+console.log(functionScopedVar); // ReferenceError: functionScopedVar is not defined
+```
+
+In this case, `functionScopedVar` can only be accessed within the `test()` function, and trying to access it outside will result in an error.
+
+### **Why `var` has function scope and not block scope**:
+
+`var` declarations are scoped to the nearest function, not the block (such as loops or conditionals) in which they are declared. This means that variables declared with `var` in a loop or an `if` block are still accessible outside of that block but still within the enclosing function.
+
+```javascript
+function test() {
+  if (true) {
+    var x = 10; // x is accessible outside the if block
+  }
+  console.log(x); // 10
+}
+
+test();
+```
+
+Here, `x` is accessible outside the `if` block because `var` has **function scope**, not block scope.
+
+### 3. **Block Scope (let and const)**
+
+With the introduction of ES6 (ECMAScript 2015), two new ways of declaring variables were introduced: `let` and `const`. These variables are **block-scoped**, meaning they are only accessible within the block (enclosed by `{}`) where they are declared, whether that's inside a loop, condition, or any other block.
+
+#### **let Example:**
+
+```javascript
+function test() {
+  if (true) {
+    let blockScopedVar = 'I am block-scoped';
+    console.log(blockScopedVar); // 'I am block-scoped'
+  }
+  
+  console.log(blockScopedVar); // ReferenceError: blockScopedVar is not defined
+}
+
+test();
+```
+
+In the above code, `blockScopedVar` is **only accessible inside the `if` block**, and trying to access it outside the block results in an error.
+
+#### **const Example:**
+
+```javascript
+function test() {
+  if (true) {
+    const blockScopedConst = 'I am a constant';
+    console.log(blockScopedConst); // 'I am a constant'
+  }
+  
+  console.log(blockScopedConst); // ReferenceError: blockScopedConst is not defined
+}
+
+test();
+```
+
+`const` works similarly to `let` in terms of block scope. However, `const` is used to declare variables whose values cannot be reassigned.
+
+### **Hoisting**
+
+Both `var` and `let/const` are **hoisted** to the top of their scope, but they behave differently:
+
+- **`var`**: When you declare a variable using `var`, it gets hoisted to the top of the function or global scope, and its value is set to `undefined` until the declaration is encountered.
+  
+```javascript
+function test() {
+  console.log(x); // undefined
+  var x = 10;
+  console.log(x); // 10
+}
+
+test();
+```
+
+- **`let`/`const`**: These variables are hoisted as well, but they do not get initialized. Trying to access them before the declaration results in a **ReferenceError**, because they are in a "temporal dead zone" between the hoisting and the initialization.
+
+```javascript
+function test() {
+  console.log(x); // ReferenceError: Cannot access 'x' before initialization
+  let x = 10;
+}
+
+test();
+```
+
+### Summary of Scoping:
+
+- **Global Scope**: Variables declared outside any function or block are accessible anywhere.
+- **Function Scope (with `var`)**: Variables declared with `var` are accessible only within the function they are declared in.
+- **Block Scope (with `let` and `const`)**: Variables declared with `let` and `const` are accessible only within the block they are declared in.
+
+### Best Practices:
+- Use `let` and `const` over `var` for block-level scoping and to avoid issues with hoisting and accidental overwrites.
+- Declare variables as close to their usage as possible, especially when using `let` and `const`, to maintain cleaner and more predictable code.
+
+Let me know if you'd like more examples or further clarification! 

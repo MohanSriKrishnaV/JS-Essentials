@@ -1,0 +1,118 @@
+### **JavaScript Data Types**  
+JavaScript has **8** main data types, categorized into **primitive** and **non-primitive** types.
+
+---
+
+## **1️⃣ Primitive Types (Immutable)**
+These are stored directly in memory and compared by **value**.
+
+### **✅ 1. Number**
+- Represents **both integers and floating-point numbers**.
+- Example:
+  ```js
+  let age = 25; 
+  let pi = 3.14;
+  ```
+- Special values:  
+  - `Infinity`, `-Infinity`, `NaN` (Not a Number)
+
+---
+
+### **✅ 2. String**
+- Represents **text**, enclosed in `""`, `''`, or \`template literals\`.
+- Example:
+  ```js
+  let name = "Alice";
+  let message = 'Hello';
+  let greeting = `Welcome, ${name}!`;
+  ```
+
+---
+
+### **✅ 3. Boolean**
+- Represents **true/false** values.
+- Example:
+  ```js
+  let isLoggedIn = true;
+  let hasPermission = false;
+  ```
+
+---
+
+### **✅ 4. Undefined**
+- A variable declared but **not assigned a value**.
+- Example:
+  ```js
+  let x;
+  console.log(x); // undefined
+  ```
+
+---
+
+### **✅ 5. Null**
+- Represents an **intentional absence of value**.
+- Example:
+  ```js
+  let emptyValue = null;
+  ```
+
+---
+
+### **✅ 6. Symbol (ES6)**
+- Used for **unique identifiers**.
+- Example:
+  ```js
+  let id = Symbol('id');
+  let anotherId = Symbol('id');
+  console.log(id === anotherId); // false
+  ```
+
+---
+
+### **✅ 7. BigInt (ES11)**
+- Used for **large numbers beyond `Number.MAX_SAFE_INTEGER`**.
+- Example:
+  ```js
+  let bigNumber = 9007199254740991n; 
+  let sum = bigNumber + 1n; 
+  ```
+
+---
+
+## **2️⃣ Non-Primitive Types (Reference)**
+These are **mutable** and stored by **reference**.
+
+### **✅ 8. Object**
+- Stores **key-value pairs**.
+- Example:
+  ```js
+  let user = { name: "Alice", age: 25 };
+  ```
+
+#### **Special Object Types**
+| Type   | Description |
+|--------|------------|
+| **Array** | Ordered list of values (`[]`) |
+| **Function** | A block of reusable code (`function`) |
+| **Date** | Represents date and time (`new Date()`) |
+| **RegExp** | Regular expressions (`/pattern/`) |
+
+---
+
+## **🔹 Summary**
+| Type         | Category  | Example |
+|-------------|-----------|---------|
+| **Number**   | Primitive | `42`, `3.14`, `NaN` |
+| **String**   | Primitive | `"Hello"`, `'World'`, `` `Hi` `` |
+| **Boolean**  | Primitive | `true`, `false` |
+| **Undefined** | Primitive | `let x;` (`x` is `undefined`) |
+| **Null**     | Primitive | `let x = null;` |
+| **Symbol**   | Primitive | `Symbol('id')` |
+| **BigInt**   | Primitive | `9007199254740991n` |
+| **Object**   | Non-Primitive | `{ name: "Alice", age: 25 }` |
+| **Array**    | Non-Primitive | `[1, 2, 3]` |
+| **Function** | Non-Primitive | `function greet() {}` |
+
+---
+
+🚀 **JavaScript is dynamically typed**, meaning variables can hold any type of data!

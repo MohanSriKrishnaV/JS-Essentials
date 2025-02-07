@@ -1,0 +1,41 @@
+Non-primitive data types in JavaScript are those that are **objects** or **collections** and can store more complex data structures. They are **passed by reference** when used as function arguments, meaning that a reference to the original object is passed, and any changes made within the function will affect the original object. 
+
+The non-primitive data types include:
+
+1. **Object**: A collection of key-value pairs. Objects can store multiple values and are often used to represent more complex data.  
+   Example:  
+   ```javascript
+   let person = { name: 'John', age: 30 };
+   ```
+
+2. **Array**: A special type of object that holds an ordered collection of values. Arrays can store any type of data, including other arrays or objects.  
+   Example:  
+   ```javascript
+   let fruits = ['apple', 'banana', 'orange'];
+   ```
+
+3. **Function**: Functions are a type of object that can be invoked to perform a task. Functions can be stored in variables, passed as arguments, and returned from other functions.  
+   Example:  
+   ```javascript
+   function greet() {
+     console.log('Hello!');
+   }
+   ```
+
+4. **Date**: A built-in object used for handling dates and times.  
+   Example:  
+   ```javascript
+   let currentDate = new Date();
+   ```
+
+5. **RegExp**: A built-in object used for working with regular expressions (patterns for matching strings).  
+   Example:  
+   ```javascript
+   let pattern = /abc/;
+   ```
+
+### Key Differences Between Primitive and Non-Primitive Types:
+- **Immutability**: Primitive types are immutable (their values cannot be changed), while non-primitive types are mutable (their properties and elements can be modified).
+- **Passing Mechanism**: Primitive types are passed by value (a copy of the data is passed), whereas non-primitive types are passed by reference (a reference to the original data is passed).
+
+Let me know if you'd like more details on any of these!

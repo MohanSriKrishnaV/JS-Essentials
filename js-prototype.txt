@@ -1,0 +1,132 @@
+In JavaScript, **prototypes** are a fundamental concept that allows for inheritance and shared properties/methods among objects. Every object in JavaScript has an internal property called `[[Prototype]]` (often accessed via `__proto__`), which points to another object. This prototype object is where JavaScript looks for properties or methods that are not directly present on the object itself.
+
+### 1. **Prototypes and Prototype Chain**
+
+The prototype of an object forms a **prototype chain**. When you try to access a property on an object, JavaScript first looks for that property directly on the object. If it doesn’t find it, it looks at the object’s prototype. If the property still isn’t found, it continues looking up the prototype chain, eventually reaching `Object.prototype`. If the property is not found by the time the prototype chain reaches `Object.prototype`, `undefined` is returned.
+
+This is how **inheritance** works in JavaScript. Objects can inherit properties and methods from their prototypes.
+
+### Example:
+
+```javascript
+// Constructor function
+function Person(name) {
+  this.name = name;
+}
+
+// Adding a method to Person's prototype
+Person.prototype.sayHello = function() {
+  console.log(`Hello, my name is ${this.name}`);
+};
+
+// Create an instance of Person
+let person1 = new Person('Alice');
+person1.sayHello(); // "Hello, my name is Alice"
+```
+
+In this example:
+- `Person` is a constructor function.
+- `Person.prototype.sayHello` is a method added to `Person`'s prototype, so all instances of `Person` inherit this method.
+
+### 2. **Prototype of an Object**
+
+You can access the prototype of an object using `Object.getPrototypeOf()`. All JavaScript objects inherit from `Object.prototype` by default, unless the prototype is explicitly set.
+
+```javascript
+let person = new Person('John');
+
+// Accessing the prototype of the object
+console.log(Object.getPrototypeOf(person)); // Person { sayHello: [Function (anonymous)] }
+```
+
+Here, `Object.getPrototypeOf(person)` returns the `Person.prototype` object.
+
+### 3. **Prototype of Functions**
+
+In JavaScript, every function has a `prototype` property. When you create an instance of a function (using `new`), the instance’s prototype is set to that function’s `prototype`.
+
+```javascript
+function Animal(name) {
+  this.name = name;
+}
+
+// Add method to Animal's prototype
+Animal.prototype.speak = function() {
+  console.log(this.name + ' makes a sound');
+};
+
+let dog = new Animal('Dog');
+dog.speak(); // Dog makes a sound
+```
+
+In this case:
+- `dog` is an instance of `Animal`, and it inherits the `speak` method from `Animal.prototype`.
+
+### 4. **Prototype Chain**
+
+When you access a property or method on an object, JavaScript first looks for that property on the object itself. If it doesn’t find it, it checks the object’s prototype. If it still doesn’t find it, it continues checking higher up the prototype chain.
+
+For example:
+
+```javascript
+let dog = new Animal('Rex');
+console.log(dog.speak); // Inherited from Animal.prototype
+console.log(dog.toString); // Inherited from Object.prototype
+```
+
+- `speak` is found in `Animal.prototype`.
+- `toString` is found in `Object.prototype`, since all objects inherit from `Object`.
+
+### 5. **Object Prototype**
+
+At the top of every prototype chain is `Object.prototype`. If you try to access a property on an object that isn’t found, JavaScript will keep looking until it reaches `Object.prototype`.
+
+```javascript
+let car = {};
+console.log(car.toString); // Inherited from Object.prototype
+```
+
+### 6. **Using Prototypes for Inheritance**
+
+Prototypes provide a way to share methods and properties between all instances of an object without needing to duplicate them. This can save memory and make code more efficient.
+
+```javascript
+function Vehicle(type) {
+  this.type = type;
+}
+
+Vehicle.prototype.describe = function() {
+  return `This is a ${this.type}`;
+};
+
+let bike = new Vehicle('bike');
+let car = new Vehicle('car');
+
+console.log(bike.describe()); // "This is a bike"
+console.log(car.describe()); // "This is a car"
+```
+
+Here, both `bike` and `car` objects share the `describe` method, which is stored once in the prototype and is not duplicated for each instance.
+
+### 7. **Changing Prototypes**
+
+You can dynamically change an object’s prototype using `Object.setPrototypeOf()`, though this is not recommended for performance reasons.
+
+```javascript
+let animal = { name: 'Animal' };
+let dog = { breed: 'Golden Retriever' };
+
+Object.setPrototypeOf(dog, animal);
+
+console.log(dog.name); // "Animal", inherited from animal
+```
+
+### Summary
+
+- **Prototype** is an object associated with every function and object in JavaScript.
+- Each object can inherit properties and methods from another object via its prototype.
+- **Prototype Chain** is how inheritance works. If a property is not found on an object, JavaScript looks for it on the prototype, and then the prototype's prototype, and so on.
+- You can add methods and properties to an object’s prototype to allow shared functionality across all instances.
+- **Object.prototype** is the root of all prototype chains.
+
+Prototypes form the foundation of inheritance in JavaScript, and understanding them is key to mastering JavaScript’s object-oriented behavior. Let me know if you need more clarification!
