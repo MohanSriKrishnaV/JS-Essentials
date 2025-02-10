@@ -1,0 +1,55 @@
+Yes, **`var` is hoisted within its scope**, but its behavior depends on whether it's inside a **function scope** or **global scope**:
+
+### **🔹 `var` Hoisting Behavior**
+1. **Hoisted to the top of its scope but remains `undefined` until assigned**  
+2. **Function-scoped (not block-scoped like `let` or `const`)**  
+3. **Can be redeclared within the same scope without errors**
+
+---
+
+### **✅ Example 1: Hoisting in Global Scope**
+```js
+console.log(a); // ✅ `undefined` (Hoisted but not initialized)
+var a = 10;
+console.log(a); // 10
+```
+🔹 **Explanation:**  
+- `var a;` is hoisted to the top, but its value (`10`) is assigned later.
+- Until the assignment happens, `a` is `undefined`.
+
+---
+
+### **✅ Example 2: Hoisting in Function Scope**
+```js
+function test() {
+  console.log(b); // ✅ `undefined` (Hoisted inside function)
+  var b = 20;
+  console.log(b); // 20
+}
+test();
+```
+🔹 **Explanation:**  
+- `var b;` is hoisted inside `test()` but not initialized.
+- Accessing `b` before assignment returns `undefined`.
+
+---
+
+### **🚨 Example 3: `var` is NOT Block-Scoped**
+```js
+if (true) {
+  var x = 30;
+}
+console.log(x); // ✅ 30 (Accessible outside the block)
+```
+🔹 **Explanation:**  
+- `var x;` is hoisted **inside the function scope** (or globally).
+- Unlike `let`/`const`, it **doesn’t respect block scope**, so `x` is still accessible outside the `if` block.
+
+---
+
+### **💡 Key Takeaways**
+✔ **Hoisted within its function/global scope**  
+✔ **Can be accessed before declaration but is `undefined`**  
+✔ **Doesn’t respect block scope (bad for maintainability)**  
+
+Would you like an explanation of `let` and `const` hoisting for comparison? 🚀

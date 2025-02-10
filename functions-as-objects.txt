@@ -1,0 +1,63 @@
+Yes! **Functions are also objects** in JavaScript.  
+
+### **Why Are Functions Objects?**  
+In JavaScript, functions are **first-class citizens**, meaning:  
+✅ They can be assigned to variables.  
+✅ They can be passed as arguments.  
+✅ They can be returned from other functions.  
+✅ **They are objects and can have properties & methods.**  
+
+---
+
+### **Example: A Function with Properties**
+Since functions are objects, we can attach properties to them:
+```javascript
+function greet() {
+    console.log("Hello!");
+}
+
+greet.message = "This is a function property";
+
+console.log(greet.message); // Output: This is a function property
+```
+Here, `greet` is a function, but we added a `message` property just like an object!
+
+---
+
+### **Example: Functions Have Built-in Methods**
+Functions in JavaScript come with methods like `.call()`, `.apply()`, and `.bind()`.
+```javascript
+function sayHello(name) {
+    console.log(`Hello, ${name}!`);
+}
+
+// Using the built-in `.call()` method
+sayHello.call(null, "Alice"); // Output: Hello, Alice!
+```
+Here, `call()` is a method that executes `sayHello` with a specific `this` context.
+
+---
+
+### **Example: Functions Can Be Used Like Objects**
+We can dynamically add methods to a function:
+```javascript
+function counter() {
+    counter.count++;
+}
+counter.count = 0; // Adding a property
+
+counter();
+counter();
+
+console.log(counter.count); // Output: 2
+```
+Here, `counter` behaves like both a function and an object with a `count` property.
+
+---
+
+### **Key Takeaways**
+✔ **Functions are objects** in JavaScript.  
+✔ They can have **properties** and **methods** like any object.  
+✔ They are **callable** (i.e., you can invoke them).  
+
+Would you like more real-world use cases? 🚀

@@ -1,0 +1,204 @@
+### **Different Types of Errors in JavaScript** 🚀
+
+JavaScript errors fall into three main categories:
+
+1️⃣ **Syntax Errors**  
+2️⃣ **Runtime Errors (Reference & Type Errors, etc.)**  
+3️⃣ **Logical Errors**  
+
+---
+
+## **1️⃣ Syntax Errors**
+📌 **Occurs when JavaScript code is not written correctly.**  
+💡 **Detected during compilation before execution.**  
+
+### **Example: Missing Brackets or Parentheses**
+```js
+console.log("Hello";  // ❌ SyntaxError: Unexpected token ';'
+```
+
+### **Example: Using Reserved Keywords**
+```js
+var let = "test";  // ❌ SyntaxError: Unexpected token 'let'
+```
+
+---
+
+## **2️⃣ Runtime Errors (Exceptions)**
+📌 **Occurs while the script is running (execution phase).**  
+💡 **These can be caught using `try...catch`.**  
+
+### **(a) ReferenceError** – Accessing an undefined variable  
+```js
+console.log(myVar);  // ❌ ReferenceError: myVar is not defined
+```
+
+### **(b) TypeError** – Performing an invalid operation on a value  
+```js
+null.toUpperCase();  // ❌ TypeError: Cannot read properties of null
+```
+
+### **(c) RangeError** – Exceeding a valid range  
+```js
+let arr = new Array(-5);  // ❌ RangeError: Invalid array length
+```
+
+### **(d) EvalError** – Issues with `eval()` (Rare)  
+```js
+eval("alert('Hello'");  // ❌ EvalError: Unexpected end of input
+```
+
+### **(e) URIError** – Incorrect `decodeURI` or `encodeURI`  
+```js
+decodeURIComponent("%");  // ❌ URIError: URI malformed
+```
+
+---
+
+## **3️⃣ Logical Errors (Bugs)**
+📌 **Code runs but produces incorrect results.**  
+💡 **Difficult to detect; requires debugging.**  
+
+### **Example: Wrong Condition**
+```js
+let age = 20;
+if (age > 18 && age < 30) {
+  console.log("Eligible for job");
+} else {
+  console.log("Not eligible");
+}
+
+// ❌ This works fine, but logic might be wrong based on requirements
+```
+
+---
+
+## **🔥 How to Handle Errors?**
+✅ **Using Try...Catch**
+```js
+try {
+  let x = myVar;  // Undefined variable
+} catch (error) {
+  console.error("Error caught:", error.message);
+}
+```
+
+✅ **Using `finally` (Runs Always)**
+```js
+try {
+  console.log(hello);
+} catch (error) {
+  console.log("Caught an error!");
+} finally {
+  console.log("This will always run");
+}
+```
+
+✅ **Using `throw` to Raise Custom Errors**
+```js
+function checkAge(age) {
+  if (age < 18) {
+    throw new Error("Age must be at least 18!");
+  }
+  return "Eligible";
+}
+
+console.log(checkAge(20));  // ✅ "Eligible"
+console.log(checkAge(16));  // ❌ Error: Age must be at least 18!
+```
+
+---
+
+## **📌 Summary Table**
+| Error Type       | Cause | Example |
+|----------------|----------------------|-------------------------|
+| **SyntaxError** | Invalid syntax | `console.log("test"` |
+| **ReferenceError** | Using an undefined variable | `console.log(myVar);` |
+| **TypeError** | Invalid operation on data type | `null.toUpperCase();` |
+| **RangeError** | Exceeding valid range | `let arr = new Array(-1);` |
+| **EvalError** | Problem with `eval()` | `eval("alert('Hello'");` |
+| **URIError** | Malformed URI functions | `decodeURIComponent("%");` |
+| **Logical Error** | Wrong logic (No syntax issues) | `if (age > 60) { retire(); }` |
+
+---
+
+🚀 Want more examples or debugging tips? 😃
+
+
+
+
+
+
+
+
+
+
+The type of error that occurs while developing the code and is shown in the browser console or terminal is known as a **"Development-Time Error"** or **"Linting Error"**. These can be categorized as:
+
+### **1️⃣ Syntax Errors (Compilation Errors)**
+- **Detected while writing the code (before execution).**
+- **Common in IDEs like VS Code or browsers like Chrome DevTools.**
+- **Prevent the script from running.**
+
+**Example:**  
+```js
+console.log("Hello";  // ❌ SyntaxError: Unexpected token ';'
+```
+🛠 **Fix:** Add the closing parenthesis correctly.
+
+---
+
+### **2️⃣ Type Errors (Static Type Checking - TypeScript)**
+- **Detected when using TypeScript or strict JavaScript rules.**
+- **Errors related to incorrect data types.**
+
+**Example (TypeScript):**  
+```ts
+let age: number = "twenty";  // ❌ Type 'string' is not assignable to type 'number'.
+```
+🛠 **Fix:** Assign a number like `age = 20`.
+
+---
+
+### **3️⃣ Linting Errors (ESLint / Prettier)**
+- **Detected by linters (like ESLint) during development.**
+- **Warns about bad coding practices, unused variables, or formatting issues.**
+
+**Example (ESLint Warning):**
+```js
+let x;  // ❌ 'x' is declared but never used.
+```
+🛠 **Fix:** Remove unused variables or use `x`.
+
+---
+
+### **4️⃣ Runtime Errors (During Execution)**
+- **Occur when running the code.**
+- **Examples: `ReferenceError`, `TypeError`, `RangeError`.**
+- **Shown in the browser console (`F12 → Console`) or terminal.**
+
+**Example (ReferenceError):**
+```js
+console.log(myVar);  // ❌ ReferenceError: myVar is not defined
+```
+🛠 **Fix:** Declare `myVar` before using it.
+
+---
+
+### **🛠 How to Debug?**
+✔ **Check the Browser Console (`F12 → Console`).**  
+✔ **Use `console.log()` for debugging.**  
+✔ **Use `try...catch` for error handling.**  
+✔ **Use ESLint for detecting coding mistakes.**  
+✔ **Use TypeScript for type safety.**  
+
+Want more debugging techniques? 🚀
+
+
+
+
+
+
+
+
+

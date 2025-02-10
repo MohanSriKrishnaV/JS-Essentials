@@ -1,0 +1,46 @@
+Here’s your example with **better console logs** to clearly show the execution order:  
+
+```js
+console.log("🚀 Step 1: Script starts");
+
+let x = new Promise((res, rej) => {
+    console.log("🔄 Step 2: Inside Promise executor function (Runs immediately)");
+    res("✅ Step 4: Promise resolved with success");
+});
+
+console.log("🕒 Step 3: Script continues executing after Promise creation");
+
+x.then((res) => console.log(res)).catch();
+```
+
+### **🔹 Expected Output**
+```
+🚀 Step 1: Script starts
+🔄 Step 2: Inside Promise executor function (Runs immediately)
+🕒 Step 3: Script continues executing after Promise creation
+✅ Step 4: Promise resolved with success
+```
+
+### **🔹 Explanation (Step-by-Step)**
+1️⃣ `console.log("🚀 Step 1: Script starts");`  
+   - Prints **before** the Promise is created.  
+
+2️⃣ The **Promise executor function** (`(res, rej) => {...}`) runs **immediately**, so:
+   - `console.log("🔄 Step 2: Inside Promise executor function (Runs immediately)");` executes **synchronously**.  
+   - `res("✅ Step 4: Promise resolved with success");` resolves the Promise but does **not** execute `.then()` yet.  
+
+3️⃣ `console.log("🕒 Step 3: Script continues executing after Promise creation");`  
+   - Runs **before `.then()`**, because **JavaScript doesn’t wait** for the Promise to resolve.  
+
+4️⃣ `.then((res) => console.log(res));`  
+   - Runs **after the current execution stack finishes** (async behavior).  
+   - Logs `"✅ Step 4: Promise resolved with success"`.  
+
+---
+
+### **🔹 Key Takeaways**
+✅ **Promise executor runs synchronously** when the Promise is created.  
+✅ **`.then()` runs asynchronously** in the next event loop cycle.  
+✅ **JavaScript does not wait** for the Promise to resolve before moving to the next line.  
+
+Would you like me to add an example with `setTimeout` to demonstrate async behavior? 🚀

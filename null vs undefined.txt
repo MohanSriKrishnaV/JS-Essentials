@@ -1,0 +1,71 @@
+### **🔹 `null` vs `undefined` in JavaScript**  
+
+Both `null` and `undefined` represent **missing or uninitialized values**, but they have key differences.  
+
+---
+
+## **1️⃣ `null`**
+- **Intentional absence of a value** (set manually).  
+- A variable or property is explicitly set to `null` by the developer.  
+- **Type:** `object` (which is a known JavaScript quirk).  
+
+✅ **Example:**
+```javascript
+let data = null; // Intentionally no value
+console.log(data); // Output: null
+console.log(typeof data); // Output: "object"
+```
+
+---
+
+## **2️⃣ `undefined`**
+- **Automatically assigned** when a variable is declared but not initialized.  
+- Also returned when **accessing a non-existent property** or function return value without `return`.  
+- **Type:** `undefined`.  
+
+✅ **Example:**
+```javascript
+let value; // No value assigned
+console.log(value); // Output: undefined
+console.log(typeof value); // Output: "undefined"
+```
+
+🚀 **More cases where `undefined` occurs:**  
+```javascript
+let obj = {};
+console.log(obj.name); // Output: undefined (property doesn't exist)
+
+function test() {}
+console.log(test()); // Output: undefined (no return statement)
+```
+
+---
+
+## **🔹 Key Differences**
+| Feature       | `null` | `undefined` |
+|--------------|--------|-------------|
+| **Meaning**  | Absence of value (set manually) | Variable not assigned a value (automatic) |
+| **Type**     | `object` (JS quirk) | `undefined` |
+| **Default?** | ❌ No, must be assigned manually | ✅ Yes, assigned by JS |
+| **Usage**    | Used when intentionally clearing a value | Used when a value is missing/uninitialized |
+
+---
+
+## **🔹 Comparison (`==` vs `===`)**
+✅ **Loose Equality (`==`)** → Treats both as equal  
+```javascript
+console.log(null == undefined); // true (JS type coercion)
+```
+
+❌ **Strict Equality (`===`)** → Differentiates them  
+```javascript
+console.log(null === undefined); // false (different types)
+```
+
+---
+
+## **🔹 When to Use?**
+- Use `null` when you **explicitly** want to indicate "no value."  
+- Avoid `undefined` in your logic (let JavaScript assign it).  
+
+Would you like examples where `null` and `undefined` cause unexpected bugs? 😊

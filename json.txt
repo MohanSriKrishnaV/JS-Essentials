@@ -1,0 +1,91 @@
+### **JSON (JavaScript Object Notation)**
+**JSON** is a lightweight data format used for storing and exchanging data between systems, especially in web applications. It is easy to read, write, and parse by both humans and machines.
+
+---
+
+### **🔹 JSON Syntax**
+JSON consists of **key-value pairs**, similar to JavaScript objects, but with some restrictions:
+- Keys and strings **must** be enclosed in **double quotes (`""`)**.
+- Data types include **strings, numbers, booleans, arrays, objects, and `null`**.
+
+```json
+{
+  "name": "Alice",
+  "age": 25,
+  "isStudent": false,
+  "hobbies": ["reading", "gaming", "traveling"],
+  "address": {
+    "city": "New York",
+    "country": "USA"
+  }
+}
+```
+
+---
+
+### **🔹 JSON vs JavaScript Object**
+| Feature         | JSON                              | JavaScript Object                 |
+|---------------|--------------------------------|--------------------------------|
+| **Key Quotes** | **Required (`"key"`)**         | Optional (`key` or `"key"`)     |
+| **Comments**   | ❌ Not Allowed                  | ✅ Allowed (`//` or `/* */`)     |
+| **Functions**  | ❌ Not Supported                | ✅ Supported                    |
+
+#### ✅ **Example**
+✅ **Valid JSON**:
+```json
+{ "name": "Alice" }
+```
+❌ **Invalid JSON** (missing quotes on key):
+```json
+{ name: "Alice" }
+```
+
+---
+
+### **🔹 JSON Data Types**
+| Type       | Example |
+|------------|----------------------------------|
+| **String**  | `"name": "Alice"`               |
+| **Number**  | `"age": 25`                     |
+| **Boolean** | `"isStudent": false`            |
+| **Array**   | `"hobbies": ["reading", "gaming"]` |
+| **Object**  | `"address": { "city": "NY" }`   |
+| **Null**    | `"nickname": null`              |
+
+---
+
+### **🔹 How to Work with JSON in JavaScript?**
+
+#### **1️⃣ Convert JSON String to JavaScript Object**
+Use `JSON.parse()` to convert a JSON string into an object:
+```javascript
+const jsonString = '{"name": "Alice", "age": 25}';
+const obj = JSON.parse(jsonString);
+console.log(obj.name); // Output: Alice
+```
+
+#### **2️⃣ Convert JavaScript Object to JSON String**
+Use `JSON.stringify()` to convert an object into a JSON string:
+```javascript
+const person = { name: "Bob", age: 30 };
+const jsonString = JSON.stringify(person);
+console.log(jsonString); // Output: '{"name":"Bob","age":30}'
+```
+
+---
+
+### **🔹 Where is JSON Used?**
+✅ **APIs & Web Services** → REST APIs return data in JSON format  
+✅ **Configuration Files** → `.json` files for settings (e.g., `package.json`)  
+✅ **LocalStorage / SessionStorage** → Store data in the browser  
+✅ **Databases** → NoSQL databases like MongoDB store data as JSON  
+
+---
+
+### **🚀 Summary**
+- JSON is a **text-based format** for data exchange.
+- Uses **key-value pairs** and supports **strings, numbers, booleans, arrays, objects, and `null`**.
+- Can be **parsed (`JSON.parse()`)** and **stringified (`JSON.stringify()`)** in JavaScript.
+- Commonly used in **APIs, configurations, and databases**.
+
+Would you like an example of **fetching JSON from an API**? 😊

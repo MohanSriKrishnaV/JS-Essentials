@@ -1,0 +1,442 @@
+In TypeScript, **data types** are categorized into different types. Here are the main ones:
+
+### 1. **Primitive Types**
+   - `string` → `"Hello"`
+   - `number` → `42`
+   - `boolean` → `true` / `false`
+   - `null` → `null`
+   - `undefined` → `undefined`
+   - `bigint` → `9007199254740991n`
+   - `symbol` → `Symbol("id")`
+
+### 2. **Object Types**
+   - `object` → `{ name: "John", age: 30 }`
+   - `array` → `number[]` or `Array<number>`
+   - `tuple` → `[string, number]`
+   - `enum` → `enum Role { Admin, User }`
+
+### 3. **Function Types**
+   - `(param: number) => string`
+   - `(): void`
+
+### 4. **Special Types**
+   - `any` → Allows any type (not recommended)
+   - `unknown` → Safer alternative to `any`
+   - `void` → Function returns nothing
+   - `never` → Function never returns (e.g., infinite loop, throwing an error)
+
+### 5. **Union & Intersection Types**
+   - `string | number` → Accepts either `string` or `number`
+   - `type A = { x: number } & { y: string }` → Combines both types
+
+### 6. **Literal Types**
+   - `"success" | "error"` → Only allows specific values
+
+### 7. **Type Aliases & Interfaces**
+   - `type User = { name: string; age: number };`
+   - `interface Person { name: string; age: number; }`
+
+Would you like a deep dive into any of these? 🚀
+
+
+
+Here's a **detailed breakdown** of all the data types in **TypeScript** with examples:
+
+---
+
+## **1. Primitive Types**  
+Primitive types are the most basic types in TypeScript.
+
+### **a. string**
+Represents text values.
+
+```ts
+let firstName: string = "Alice";
+```
+
+### **b. number**
+Represents integer and floating-point numbers.
+
+```ts
+let age: number = 25;
+let price: number = 99.99;
+```
+
+### **c. boolean**
+Represents `true` or `false`.
+
+```ts
+let isActive: boolean = true;
+```
+
+### **d. null**
+Represents the intentional absence of a value.
+
+```ts
+let emptyValue: null = null;
+```
+
+### **e. undefined**
+Represents a variable that has been declared but not assigned a value.
+
+```ts
+let notAssigned: undefined;
+```
+
+### **f. bigint**
+Used for large numbers beyond `Number.MAX_SAFE_INTEGER`.
+
+```ts
+let bigNumber: bigint = 9007199254740991n;
+```
+
+### **g. symbol**
+Used to create unique identifiers.
+
+```ts
+const uniqueId: symbol = Symbol("id");
+```
+
+---
+
+## **2. Object Types**  
+Objects, arrays, and special structures.
+
+### **a. Object**
+Represents a key-value pair collection.
+
+```ts
+let person: { name: string; age: number } = { name: "John", age: 30 };
+```
+
+### **b. Array**
+Used to store multiple values of the same type.
+
+```ts
+let numbers: number[] = [1, 2, 3, 4, 5]; // Method 1
+let strings: Array<string> = ["apple", "banana"]; // Method 2
+```
+
+### **c. Tuple**
+A fixed-length array with specific types at each index.
+
+```ts
+let user: [string, number] = ["Alice", 30]; // Fixed structure
+```
+
+### **d. Enum**
+Defines a set of named constant values.
+
+```ts
+enum Role {
+  Admin,
+  User,
+  Guest
+}
+
+let myRole: Role = Role.Admin; // 0
+```
+
+---
+
+## **3. Function Types**  
+Defines the input and output types of functions.
+
+```ts
+function greet(name: string): string {
+  return `Hello, ${name}!`;
+}
+```
+
+```ts
+let multiply: (a: number, b: number) => number = (x, y) => x * y;
+```
+
+---
+
+## **4. Special Types**  
+These types handle cases where type safety needs to be controlled.
+
+### **a. any**
+Allows any type (not recommended).
+
+```ts
+let randomValue: any = "Hello";
+randomValue = 42; // Allowed
+```
+
+### **b. unknown**
+Like `any`, but requires type checking before usage.
+
+```ts
+let data: unknown = "Hello";
+if (typeof data === "string") {
+  console.log(data.toUpperCase());
+}
+```
+
+### **c. void**
+Used for functions that do not return anything.
+
+```ts
+function logMessage(message: string): void {
+  console.log(message);
+}
+```
+
+### **d. never**
+Used for functions that **never return** (e.g., infinite loops or errors).
+
+```ts
+function throwError(msg: string): never {
+  throw new Error(msg);
+}
+```
+
+---
+
+## **5. Union & Intersection Types**  
+
+### **a. Union (`|`)**
+Allows multiple types for a variable.
+
+```ts
+let id: string | number;
+id = "abc123";
+id = 101;
+```
+
+### **b. Intersection (`&`)**
+Combines multiple types into one.
+
+```ts
+type Person = { name: string };
+type Employee = { id: number };
+
+let worker: Person & Employee = { name: "Alice", id: 123 };
+```
+
+---
+
+## **6. Literal Types**  
+Restricts a value to specific allowed options.
+
+```ts
+let status: "success" | "error";
+status = "success"; // ✅ Allowed
+status = "error";   // ✅ Allowed
+// status = "failure"; ❌ Not allowed
+```
+
+---
+
+## **7. Type Aliases & Interfaces**  
+
+### **a. Type Aliases**
+Gives a custom name to a type.
+
+```ts
+type User = { name: string; age: number };
+
+let user: User = { name: "Bob", age: 40 };
+```
+
+### **b. Interfaces**
+Defines a structure for an object.
+
+```ts
+interface Car {
+  brand: string;
+  year: number;
+}
+
+let myCar: Car = { brand: "Toyota", year: 2023 };
+```
+
+---
+
+## **Conclusion**
+TypeScript provides strong type safety with a variety of types, including:
+✔ **Primitives** (string, number, boolean)  
+✔ **Object types** (object, array, tuple, enum)  
+✔ **Function types**  
+✔ **Special types** (`any`, `unknown`, `void`, `never`)  
+✔ **Advanced types** (union, intersection, literals, aliases, interfaces)
+
+Would you like code examples for specific scenarios? 🚀
+
+### **Difference Between `interface` and `type` in TypeScript**  
+
+Both `interface` and `type` in TypeScript are used to define custom types, but they have some key differences.
+
+---
+
+## **1️⃣ Basic Syntax**
+### **Interface**
+```ts
+interface Person {
+  name: string;
+  age: number;
+}
+```
+
+### **Type**
+```ts
+type Person = {
+  name: string;
+  age: number;
+};
+```
+
+✅ Both are valid ways to define an object type.
+
+---
+
+## **2️⃣ Extending Types (Inheritance)**  
+### **Interface (Extends Multiple Interfaces)**
+```ts
+interface Employee {
+  id: number;
+}
+
+interface Developer extends Person, Employee {
+  skills: string[];
+}
+
+const dev: Developer = {
+  name: "Alice",
+  age: 30,
+  id: 123,
+  skills: ["TypeScript", "Angular"]
+};
+```
+
+### **Type (Extends Using Intersection `&`)**
+```ts
+type Employee = { id: number };
+type Developer = Person & Employee & { skills: string[] };
+
+const dev: Developer = {
+  name: "Alice",
+  age: 30,
+  id: 123,
+  skills: ["TypeScript", "Angular"]
+};
+```
+
+✅ **Both can extend multiple types, but `interface` uses `extends`, while `type` uses `&`.**
+
+---
+
+## **3️⃣ Adding New Properties (Declaration Merging)**
+### **Interface (Supports Merging)**
+```ts
+interface Car {
+  brand: string;
+}
+
+interface Car {
+  model: string;
+}
+
+const myCar: Car = {
+  brand: "Toyota",
+  model: "Corolla"
+};
+```
+
+### **Type (Does NOT Support Merging)**
+```ts
+type Car = { brand: string };
+
+// ❌ Error: Duplicate identifier 'Car'
+// type Car = { model: string };
+```
+
+✅ **Interfaces support declaration merging, but `type` does not.**  
+
+---
+
+## **4️⃣ Using With Functions**  
+### **Interface**
+```ts
+interface Greet {
+  (name: string): string;
+}
+
+const sayHello: Greet = (name) => `Hello, ${name}`;
+```
+
+### **Type**
+```ts
+type Greet = (name: string) => string;
+
+const sayHello: Greet = (name) => `Hello, ${name}`;
+```
+
+✅ **Both can define function types.**
+
+---
+
+## **5️⃣ Using With Tuples & Primitives**  
+### **Type (Supports Tuples & Primitives)**
+```ts
+type Coordinates = [number, number]; // Tuple
+type ID = string | number; // Union
+```
+
+### **Interface (Does NOT Support Primitives or Tuples)**
+```ts
+// ❌ Error: Interface cannot represent a tuple or primitive
+// interface Coordinates = [number, number];
+```
+
+✅ **Only `type` supports tuples and primitives.**
+
+---
+
+## **6️⃣ Usage in React Props**
+### **Using Interface**
+```tsx
+interface ButtonProps {
+  label: string;
+}
+
+const Button: React.FC<ButtonProps> = ({ label }) => <button>{label}</button>;
+```
+
+### **Using Type**
+```tsx
+type ButtonProps = { label: string };
+
+const Button: React.FC<ButtonProps> = ({ label }) => <button>{label}</button>;
+```
+
+✅ **Both work well in React, but interfaces are more common.**
+
+---
+
+## **7️⃣ Performance Considerations**  
+- **Interfaces** are optimized by TypeScript's compiler and perform slightly better.
+- **Types** are evaluated inline and may lead to slower performance in complex cases.
+
+---
+
+## **🚀 Summary Table**
+| Feature                | `interface` | `type` |
+|------------------------|------------|--------|
+| Object Type Definition | ✅ Yes | ✅ Yes |
+| Function Type Definition | ✅ Yes | ✅ Yes |
+| Extending | `extends` ✅ | `&` ✅ |
+| Declaration Merging | ✅ Yes | ❌ No |
+| Supports Tuples/Primitives | ❌ No | ✅ Yes |
+| React Props | ✅ Yes | ✅ Yes |
+| Compiler Performance | Faster | Slightly slower |
+
+---
+
+## **🎯 When to Use What?**
+✔ **Use `interface`** when defining object shapes and working with classes (better performance, supports merging).  
+✔ **Use `type`** when defining unions, tuples, and advanced types.  
+
+Would you like any specific examples? 🚀

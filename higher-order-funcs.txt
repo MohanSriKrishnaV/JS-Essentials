@@ -1,0 +1,83 @@
+### **Higher-Order Functions in JavaScript**  
+
+A **Higher-Order Function (HOF)** is a function that either:  
+1. Takes one or more functions as arguments.  
+2. Returns a function as its result.  
+
+### **Examples of Higher-Order Functions**  
+
+#### **1. Functions Taking Another Function as an Argument**  
+```javascript
+function applyOperation(a, b, operation) {
+    return operation(a, b);
+}
+
+// Example usage
+const sum = (x, y) => x + y;
+const multiply = (x, y) => x * y;
+
+console.log(applyOperation(5, 3, sum));      // Output: 8
+console.log(applyOperation(5, 3, multiply)); // Output: 15
+```
+Here, `applyOperation` is a **higher-order function** because it takes another function (`operation`) as an argument.
+
+---
+
+#### **2. Functions Returning Another Function**  
+```javascript
+function createMultiplier(multiplier) {
+    return function (num) {
+        return num * multiplier;
+    };
+}
+
+// Creating specialized multiplier functions
+const double = createMultiplier(2);
+const triple = createMultiplier(3);
+
+console.log(double(5)); // Output: 10
+console.log(triple(5)); // Output: 15
+```
+Here, `createMultiplier` is a **higher-order function** because it returns a function.
+
+---
+
+### **Common Higher-Order Functions in JavaScript**
+JavaScript provides several built-in higher-order functions:
+
+#### **1. `map()` – Transforming an Array**  
+```javascript
+const numbers = [1, 2, 3, 4, 5];
+const squared = numbers.map(num => num * num);
+console.log(squared); // Output: [1, 4, 9, 16, 25]
+```
+`map()` is a higher-order function because it takes a function (`num => num * num`) as an argument.
+
+---
+
+#### **2. `filter()` – Filtering an Array**  
+```javascript
+const numbers = [1, 2, 3, 4, 5, 6];
+const evenNumbers = numbers.filter(num => num % 2 === 0);
+console.log(evenNumbers); // Output: [2, 4, 6]
+```
+`filter()` is a higher-order function because it takes a function (`num => num % 2 === 0`) as an argument.
+
+---
+
+#### **3. `reduce()` – Reducing an Array to a Single Value**  
+```javascript
+const numbers = [1, 2, 3, 4, 5];
+const sum = numbers.reduce((acc, num) => acc + num, 0);
+console.log(sum); // Output: 15
+```
+`reduce()` is a higher-order function because it takes a function as an argument.
+
+---
+
+### **Why Use Higher-Order Functions?**  
+✅ **Code Reusability** – Avoid writing duplicate logic.  
+✅ **Modularity** – Break down complex logic into reusable functions.  
+✅ **Functional Programming** – Encourages a declarative coding style.  
+
+Would you like more advanced examples or real-world use cases? 🚀
