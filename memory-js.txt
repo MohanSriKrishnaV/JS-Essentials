@@ -1,0 +1,105 @@
+### **📌 Garbage Collection (GC) in JavaScript**  
+Garbage Collection (GC) is the process of automatically reclaiming memory occupied by objects that are **no longer accessible** in the program. JavaScript uses **automatic garbage collection**, primarily relying on the **Mark-and-Sweep algorithm**.
+
+#### **🔹 How Does Garbage Collection Work?**
+1. **Reachability**: JS determines whether an object is **reachable** or **unreachable**.
+   - Global variables, function scopes, and closures hold references to objects.
+2. **Mark Phase**: The GC marks objects that are **still reachable**.
+3. **Sweep Phase**: The GC removes unreachable (unreferenced) objects from memory.
+
+---
+### **📌 How Do Memory Leaks Occur in JavaScript?**
+A **memory leak** happens when an object that is **no longer needed** is not garbage collected due to lingering references.
+
+#### **🔺 Common Causes of Memory Leaks**
+1️⃣ **Global Variables**  
+   - Unintended global variables (`window` object keeps reference).  
+   ```js
+   function leak() {
+       myLeak = "I am leaked"; // Implicitly becomes a global variable
+   }
+   leak(); 
+   console.log(window.myLeak); // Still accessible ❌
+   ```
+
+2️⃣ **Event Listeners Not Removed**  
+   - DOM elements holding references to event listeners prevent GC.  
+   ```js
+   const button = document.getElementById("btn");
+   button.addEventListener("click", function() {
+       console.log("Clicked!");
+   });
+   button.remove(); // But event listener is still in memory ❌
+   ```
+
+3️⃣ **Closures Holding References**  
+   - Variables inside a closure persist even after function execution.  
+   ```js
+   function outer() {
+       let leakedData = "Not collected";
+       return function inner() {
+           console.log(leakedData);
+       };
+   }
+   const hold = outer(); // Reference remains in memory ❌
+   ```
+
+4️⃣ **Detached DOM Elements**  
+   - Elements removed from DOM but still referenced in JS.  
+   ```js
+   let div = document.createElement("div");
+   document.body.appendChild(div);
+   div.remove(); // But JS still has a reference ❌
+   ```
+
+5️⃣ **setInterval Without Clearing**  
+   - If `setInterval` is not cleared, it keeps references forever.  
+   ```js
+   const interval = setInterval(() => console.log("Running"), 1000);
+   // Forgetting clearInterval(interval) causes a memory leak ❌
+   ```
+
+---
+### **📌 How to Debug Memory Leaks in a Large Front-End App?**
+#### ✅ **Using Chrome DevTools**
+1. **Open DevTools → Memory Tab**
+   - Take a **Heap Snapshot** before and after performing an action.
+   - Look for **Retained Objects** that should have been garbage collected.
+
+2. **Use the Performance Tab**
+   - Record memory usage over time.
+   - Identify unexpected memory growth (**Heap Size increasing continuously**).
+
+3. **Check Event Listeners**
+   - In DevTools, go to **Elements → Event Listeners**.
+   - Remove unnecessary event listeners dynamically.
+
+4. **Manually Trigger Garbage Collection**
+   - In DevTools Console, run:
+     ```js
+     window.gc(); // Forces GC in debugging mode
+     ```
+
+---
+### **📌 How to Prevent Memory Leaks?**
+✅ **Use `let` and `const` instead of global variables.**  
+✅ **Manually remove event listeners when not needed.**  
+   ```js
+   element.removeEventListener("click", handler);
+   ```  
+✅ **Avoid unnecessary closures holding references.**  
+✅ **Use `WeakMap` & `WeakSet` for dynamic objects.**  
+✅ **Clear intervals and timeouts when no longer needed.**  
+   ```js
+   clearInterval(myInterval);
+   clearTimeout(myTimeout);
+   ```  
+
+---
+### **🚀 Summary**
+- **Garbage Collection** automatically removes unused memory.
+- **Memory Leaks** occur due to unintentional lingering references.
+- **Debugging Tools** include Chrome DevTools (`Heap Snapshot`, `Memory Tab`).
+- **Best Practices** include clearing event listeners, timers, and using `WeakMap` for ephemeral objects.
+
+🔥 **Pro Tip**: **If memory usage keeps growing over time, it’s likely a memory leak!** 🚀
