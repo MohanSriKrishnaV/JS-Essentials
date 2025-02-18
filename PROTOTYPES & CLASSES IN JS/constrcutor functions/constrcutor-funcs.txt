@@ -1,0 +1,75 @@
+In JavaScript, functions that create objects are called **constructor functions** (or sometimes just "constructors").  They are used to define the blueprint for a type of object.  You then use the `new` keyword to create individual instances of that object.
+
+Here's a breakdown:
+
+1. **Defining a Constructor Function:**
+
+   Constructor functions are typically named with a capital first letter (a common convention, not a strict requirement, but highly recommended for readability).  Inside the function, the `this` keyword is used to refer to the *new* object that will be created.  You assign properties and methods to `this` to define the characteristics of objects created with this constructor.
+
+   ```javascript
+   function Person(firstName, lastName, age) {
+     this.firstName = firstName;
+     this.lastName = lastName;
+     this.age = age;
+     this.greet = function() { // Method defined inside the constructor
+       return "Hello, my name is " + this.firstName + " " + this.lastName;
+     };
+   }
+   ```
+
+2. **Creating Objects with `new`:**
+
+   The `new` keyword is essential.  It does the following:
+
+   * Creates a brand new, empty object.
+   * Sets the `this` context within the constructor function to point to that new object.
+   * Executes the constructor function, allowing you to initialize the object's properties.
+   * Returns the newly created object.
+
+   ```javascript
+   const john = new Person("John", "Doe", 30);
+   const jane = new Person("Jane", "Smith", 25);
+
+   console.log(john.firstName); // Output: John
+   console.log(jane.greet());   // Output: Hello, my name is Jane Smith
+   ```
+
+3. **Prototype and Inheritance (Important Related Concept):**
+
+   JavaScript uses prototypes for inheritance.  When you define a constructor function, it automatically has a `prototype` property.  You can add methods and properties to the `prototype` of the constructor.  These properties and methods will then be shared by *all* objects created with that constructor.  This is much more efficient than defining the methods directly inside the constructor (as we did with `greet` in the initial example), because each object would then get its own copy of the function.
+
+   ```javascript
+   function Animal(name) {
+     this.name = name;
+   }
+
+   Animal.prototype.speak = function() {
+     console.log(this.name + " makes a sound.");
+   };
+
+   function Dog(name, breed) {
+     Animal.call(this, name); // Call the parent constructor to set the name
+     this.breed = breed;
+   }
+
+   // Inherit from Animal:
+   Dog.prototype = Object.create(Animal.prototype);  // Crucial step for inheritance
+   Dog.prototype.constructor = Dog; // Reset constructor (important!)
+   Dog.prototype.bark = function() {
+     console.log("Woof!");
+   };
+
+   const myDog = new Dog("Buddy", "Golden Retriever");
+   myDog.speak(); // Output: Buddy makes a sound.
+   myDog.bark();  // Output: Woof!
+
+   console.log(myDog instanceof Dog);      // true
+   console.log(myDog instanceof Animal);   // true (because Dog inherits from Animal)
+   ```
+
+**Key Improvements with Prototypes:**
+
+* **Memory Efficiency:** Methods defined on the prototype are shared, so they only exist once in memory, rather than being duplicated for each object.
+* **Inheritance:** Prototypes are the foundation of inheritance in JavaScript.
+
+**In summary:** Constructor functions are the way you create blueprints for objects in JavaScript.  The `new` keyword is used to instantiate those objects.  And prototypes are a crucial part of the mechanism, providing for shared methods and inheritance.  Modern JavaScript often uses classes (which are syntactic sugar over prototypes), but understanding constructor functions and prototypes is still essential for a deep understanding of the language.
